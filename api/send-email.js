@@ -37,7 +37,7 @@ export default async function handler(req, res) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Tensoro Contact Form <onboarding@resend.dev>', // You'll need to configure your domain with Resend
+      from: 'Tensoro Contact Form <noreply@tensorolabs.com>',
       to: ['matt@tensorolabs.com'],
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       html: `
