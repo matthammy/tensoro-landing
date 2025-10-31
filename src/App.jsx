@@ -68,18 +68,27 @@ function App() {
 
       if (error) throw error
 
-      // Send email (in production, you'd use a backend service or Supabase Edge Function)
-      const emailBody = `
-New Contact Form Submission
+      // Send email via serverless function
+      const emailResponse = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          companyWebsite: formData.companyWebsite,
+          question: formData.question,
+        }),
+      })
 
-First Name: ${formData.firstName}
-Last Name: ${formData.lastName}
-Email: ${formData.email}
-Company Website: ${formData.companyWebsite}
-Question: ${formData.question}
-      `
+      const emailResult = await emailResponse.json()
 
-      console.log('Email to matt@tensorolabs.com:', emailBody)
+      if (!emailResponse.ok) {
+        console.error('Email sending failed:', emailResult)
+        // Don't throw error - form was saved to Supabase successfully
+      }
 
       setSubmitStatus('success')
       setFormData({
