@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     // Send email using Resend
     const { data, error } = await resend.emails.send({
       from: 'Tensoro Contact Form <noreply@tensorolabs.com>',
-      to: ['matt@tensorolabs.com'],
+      to: ['mat@tensorolabs.com'],
       subject: `New Contact Form Submission from ${firstName} ${lastName}`,
       html: `
         <h2>New Contact Form Submission</h2>
